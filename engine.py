@@ -35,7 +35,9 @@ class Pattern:
         if m is None or m.length == 0:
             return None
         w = toks[pos:pos + m.length]
-        ctx = {'match_paths': m.paths}
+        # Convert absolute positions to window-relative for transforms
+        rel_paths = [(p, idx - pos) for p, idx in m.paths]
+        ctx = {'match_paths': rel_paths}
         out = self.transform.apply(w, ctx)
         return (out, m.score * self.weight, m.paths, m.length)
 
