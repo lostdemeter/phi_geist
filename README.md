@@ -226,7 +226,7 @@ converts 1e6 to φ-format with 0.5% error.
 - Python 3.10+
 - NumPy (for phase computation)
 - GCC (for verification pipeline — optional)
-- Pygame (for φ-Doom graphical demo — auto-installed by run.sh)
+
 
 ## Tests
 
