@@ -4,6 +4,54 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from phi_lib3 import tokens, matchers, transforms, resolver, engine, phase
+from phi_lib3.control import decompile as cfg_decompile
+from phi_lib3.patterns.builder import build as build_decompiler
+from phi_lib3.resonant import increment_regularity, is_jump_table
+
+_dResolver, _dEngine = build_decompiler()
+
+
+def _preprocess(asm_tokens):
+    out, _ = _dEngine.apply(asm_tokens)
+    return out
+
+
+def test_cfg_basic():
+    raw = ['cmp', 'eax', ',', '0', ';', 'je', 'L1', ';',
+           'mov', 'ebx', ',', '1', ';', 'L1', ':']
+    result = cfg_decompile(_preprocess(raw))
+    assert 'if' in result
+
+
+def test_cfg_loop():
+    raw = ['mov', 'ecx', ',', '0', ';', 'L1', ':',
+           'add', 'ecx', ',', '1', ';',
+           'cmp', 'ecx', ',', '10', ';', 'jl', 'L1']
+    result = cfg_decompile(_preprocess(raw))
+    assert 'while' in result
+
+
+def test_cfg_nested():
+    raw = ['mov', 'eax', ',', '0', ';', 'L1', ':',
+           'cmp', 'eax', ',', '5', ';', 'jl', 'L3', ';',
+           'add', 'eax', ',', '2', ';', 'jmp', 'L4', ';',
+           'L3', ':', 'add', 'eax', ',', '1', ';',
+           'L4', ':', 'cmp', 'eax', ',', '10', ';', 'jl', 'L1']
+    result = cfg_decompile(_preprocess(raw))
+    assert 'while' in result
+    assert 'if' in result
+
+
+def test_resonant_jump_table():
+    table = [0x401100, 0x401150, 0x401200, 0x401250, 0x401300]
+    is_jt, reg = is_jump_table(table, (0x401000, 0x402000))
+    assert is_jt, f"Expected jump table, got reg={reg:.3f}"
+
+
+def test_resonant_random():
+    data = [0x401000, 0x7ffff000, 0x400100, 0xdeadbeef, 0x12345678]
+    is_jt, reg = is_jump_table(data, (0x400000, 0x402000))
+    assert not is_jt, f"Expected NOT jump table, got reg={reg:.3f}"
 
 
 def test_token_hierarchy():
@@ -133,4 +181,7 @@ if __name__ == "__main__":
     test_phase_path()
     test_log_space_invariant()
     test_save_load()
-    print("All phi_lib3 tests passed.")
+    print("All phi_lib3 tests passed (including ported modules).")
+
+
+
