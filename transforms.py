@@ -39,9 +39,11 @@ class CopyPath(Transform):
             best_idx = None
             best_dist = float('inf')
             for p, idx in context['match_paths']:
-                if p == self.path and idx < len(window):
-                    best_idx = idx
-                    break
+                if p == self.path or (len(p) >= len(self.path) and
+                                      p[:len(self.path)] == self.path):
+                    if idx < len(window):
+                        best_idx = idx
+                        break
                 d = phase_distance(pv, path_phase(p))
                 if d < best_dist:
                     best_dist = d
@@ -71,9 +73,11 @@ class Cond(Transform):
         val = window[0] if window else ''
         if context and 'match_paths' in context:
             for p, idx in context['match_paths']:
-                if p == self.path and idx < len(window):
-                    val = window[idx]
-                    break
+                if p == self.path or (len(p) >= len(self.path) and
+                                      p[:len(self.path)] == self.path):
+                    if idx < len(window):
+                        val = window[idx]
+                        break
         return [self.cases.get(val, self.default)]
 
 
@@ -101,8 +105,10 @@ class Bridge(Transform):
         val = window[0] if window else ''
         if context and 'match_paths' in context:
             for p, idx in context['match_paths']:
-                if p == self.path and idx < len(window):
-                    val = window[idx]
-                    break
+                if p == self.path or (len(p) >= len(self.path) and
+                                      p[:len(self.path)] == self.path):
+                    if idx < len(window):
+                        val = window[idx]
+                        break
         mapping, conf, _ = self.resolver.resolve(val, self.path)
         return [mapping if mapping is not None and conf > 0.1 else val]
