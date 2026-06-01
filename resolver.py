@@ -11,9 +11,9 @@ Resolution strategy:
   4. Nothing → CONTRACT
 """
 
-from . import tokens
-from .gates import exact_match
-from .phase import path_phase, phase_distance
+import tokens
+from gates import exact_match
+from phase import path_phase, phase_distance
 
 EXPAND = '+1'
 PRESERVE_POS = '+0'
@@ -55,7 +55,7 @@ class Resolver:
         self._entries: dict[tuple, list] = {}
 
     def learn(self, token: str, output: str, path: list[int]):
-        from .phase import path_key as pk_fn
+        from phase import path_key as pk_fn
         pk = pk_fn(path)
         pv = path_phase(path)
         cls = tokens.classify(token).name
@@ -67,7 +67,7 @@ class Resolver:
 
     def resolve(self, token: str, path: list[int]
                 ) -> tuple[str | None, float, str]:
-        from .phase import path_key as pk_fn
+        from phase import path_key as pk_fn
         pk = pk_fn(path)
         pv = path_phase(path)
         cls = tokens.classify(token)

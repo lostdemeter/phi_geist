@@ -1,3 +1,4 @@
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 """
 Production x86 instruction patterns — control flow.
 
@@ -6,10 +7,10 @@ cmp REG, REG ; JCC LABEL → if (REG op REG) goto LABEL
 jmp LABEL                → goto LABEL
 """
 
-from .. import matchers as M
-from .. import transforms as T
-from .. import tokens as tk
-from .. import engine as E
+import matchers as M
+import transforms as T
+import tokens as tk
+import engine as E
 
 
 JCC_OPS = {'je': '==', 'jne': '!=', 'jl': '<', 'jle': '<=',

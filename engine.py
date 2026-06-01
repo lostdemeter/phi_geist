@@ -6,9 +6,9 @@ Feedback loop via engine.feedback().
 """
 
 from typing import Optional
-from . import matchers as M
-from . import transforms as T
-from .phase import path_phase, pos_phase, phase_distance
+import matchers as M
+import transforms as T
+from phase import path_phase, pos_phase, phase_distance
 
 _SPEC = {'Value': 100, 'Class': 50, 'Any': 30, 'Seq': 20, 'Opt': 10, 'Star': 5}
 

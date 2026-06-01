@@ -7,7 +7,7 @@ Resolver via path-indexed mappings.
 """
 
 from typing import Optional
-from .phase import path_phase, phase_distance
+from phase import path_phase, phase_distance
 
 
 class Transform:

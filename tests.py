@@ -1,12 +1,12 @@
 """Tests for phi_lib3."""
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
 
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from phi_lib3 import tokens, matchers, transforms, resolver, engine, phase
-from phi_lib3.control import decompile as cfg_decompile
-from phi_lib3.patterns.builder import build as build_decompiler
-from phi_lib3.resonant import increment_regularity, is_jump_table
+import tokens, matchers, transforms, resolver, engine, phase
+from control import decompile as cfg_decompile
+from patterns.builder import build as build_decompiler
+from resonant import increment_regularity, is_jump_table
 
 _dResolver, _dEngine = build_decompiler()
 

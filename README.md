@@ -205,29 +205,21 @@ phi_lib3/
 └── README.md         this file
 ```
 
-## The φ-Doom Demo
+## The φ-FPU
 
-The `phi_doom/` directory contains a Wolfenstein-style ray caster
-that runs using φ-FPU lane operations:
+The φ-FPU is a vector floating-point unit where each lane operates on
+8-bit φ-values instead of 32-bit IEEE 754 floats. A lane stores:
+[2 mantissa | 1 sign | 5 rung bits]. Value = sign × φ^(-rung) ×
+mantissa_correction.
 
-- `fpu.py`: 8-bit φ-lane emulator (5 rung + 1 sign + 2 mantissa)
-  with φ-MUL (1 cycle), φ-ADD (2 cycles), IEEE 754 conversion
-- `gpfpu.py`: General-purpose 16-bit variant with biased rung
-  (configurable bits, covers IEEE 754's full dynamic range)
-- `gdoom.py`: Graphical renderer with textured walls and minimap
-- `phi_integration.py`: φ-FPU stats tracking in a full DOOM game
-  (NightShade Studios PyDoom with textures, sprites, sound)
+φ-MUL is 1 cycle (rung addition + sign XOR + mantissa lookup).
+φ-ADD is 2 cycles (rung comparison + mantissa correction).
 
-Run `bash phi_doom/run.sh` for options:
-1. Full DOOM with textures/sound (float32 reference)
-2. φ-DOOM with φ-FPU stat tracking
-3. Simple graphical ray caster
-4. ASCII terminal view
-
-The φ-DOOM demo proves the φ-FPU concept is real: same game, same
-visuals, different arithmetic. The 8-bit lane format is designed for
-neural network weights; the 16-bit GP variant with biased rung extends
-to general-purpose 3D math.
+The General-Purpose φ-FPU (GP-FPU) extends this with a biased rung
+(like IEEE 754's biased exponent), enabling the full dynamic range
+needed for 3D math and physics while keeping the same lane format
+and instruction set. A 16-bit GP lane (8 rung + 3 exp + 1 sign + 4 mant)
+converts 1e6 to φ-format with 0.5% error.
 
 ## Requirements
 
@@ -244,14 +236,13 @@ python -m phi_lib3.tests
 
 ## References
 
-The mathematical foundations are documented in `/home/thorin/termly_test4/`:
-
-- `PHI_PHASE_PAPER.md` — φ-phase attention principle
-- `DISCOVERY_LOG.md` — complete discovery log
-- `phi_fpu/ARCHITECTURE.md` — φ-FPU specification
-- `riemann_attention/` — Riemann attention paper and code
-- `constructive_transformer/` — 4-state constructive transformer
-- `riemann_structures/` — 16 Riemann-zero-indexed data structures
+- **TruthSpace** (Gushurst, 2026): φ-Zipf duality, 3,584 critical lines
+- **Constructive transformer v2** (Gushurst, 2026): 26-axis, 4-state
+  alphabet, hand-placed weights, no training
+- **Riemann attention** (Gushurst, 2026): Explicit formula as position-only
+  linear attention; signed weights vs softmax incompatibility
+- **φ-rung GPTQ**: Weight quantization to 256 φ-ladder values at +0.023 loss
+- **Riemann structures**: 16 data structures using γₙ · key mod 2π primitive
 
 ## License
 

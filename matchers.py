@@ -7,8 +7,8 @@ Paths are invariant to variable-length matches (Opt/Star).
 """
 
 from typing import Optional
-from . import tokens as tk
-from .gates import exact_match
+import tokens as tk
+from gates import exact_match
 
 
 class Match:

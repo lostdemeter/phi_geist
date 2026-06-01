@@ -6,7 +6,8 @@ The continuous gate (rect_pair) converges to exact_match at
 infinite sharpness — this file proves the limit exists.
 
 For the full mathematical derivation of the φ-π connection,
-gate_step vs rect_pair, and SiLU's 4 states, see phi_lib2/gates.py.
+gate_step vs rect_pair, and SiLU's 4 states, see the references
+in README.md and WHY.md.
 """
 
 PHI = 1.618033988749895

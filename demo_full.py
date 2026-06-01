@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
 """
 Full decompilation pipeline demo — v3.
 
@@ -7,10 +8,10 @@ Assembly → Patterns → CFG → Structured C → Compile → Verify
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from phi_lib3.patterns.builder import build
-from phi_lib3.control import decompile as cfg_decompile
-from phi_lib3.verify import wrap_c, verify, report
-from phi_lib3.resonant import is_jump_table
+from patterns.builder import build
+from control import decompile as cfg_decompile
+from verify import wrap_c, verify, report
+from resonant import is_jump_table
 
 
 def tok(s):

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
 """
 Full decompilation stress test for phi_lib3.
 
@@ -8,7 +9,7 @@ unknown opcodes, variable-length patterns, and control flow.
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from phi_lib3 import tokens, matchers, transforms, resolver, engine, phase
+import tokens, matchers, transforms, resolver, engine, phase
 
 
 def tok(s):

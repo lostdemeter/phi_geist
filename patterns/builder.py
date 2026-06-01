@@ -1,7 +1,10 @@
 """Pattern builder — registers all instruction patterns."""
-from .. import resolver as R
-from .. import engine as E
-from . import mov, arith, control
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import resolver as R
+import engine as E
+import mov, arith, ctrl
 
 
 def build_resolver():
@@ -18,7 +21,7 @@ def build_engine(resolver):
     eng = E.PatternEngine()
     mov.register(resolver, eng)
     arith.register(resolver, eng)
-    control.register(resolver, eng)
+    ctrl.register(resolver, eng)
     return eng
 
 

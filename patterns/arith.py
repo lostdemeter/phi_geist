@@ -1,3 +1,4 @@
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 """
 Production x86 instruction patterns — arithmetic.
 
@@ -9,10 +10,10 @@ inc REG        → REG++
 dec REG        → REG--
 """
 
-from .. import matchers as M
-from .. import transforms as T
-from .. import tokens as tk
-from .. import engine as E
+import matchers as M
+import transforms as T
+import tokens as tk
+import engine as E
 
 
 def register(resolver, eng):

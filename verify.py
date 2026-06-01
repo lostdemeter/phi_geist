@@ -10,7 +10,7 @@ Pipeline:
 
 import subprocess, tempfile, os, re
 from collections import defaultdict
-from .normalize import normalize
+from normalize import normalize
 
 
 def compile_to_asm(c_code: str, compiler: str = 'gcc') -> tuple[bool, str, str]:

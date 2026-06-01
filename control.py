@@ -6,7 +6,7 @@ constructs a CFG from labels and jumps, and produces structured C
 with if/else, while loops, and nesting.
 
 Usage:
-    from phi_lib3.control import decompile
+    from control import decompile
     c_code = decompile(token_stream)
 """
 

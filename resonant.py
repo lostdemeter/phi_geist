@@ -13,7 +13,7 @@ Key insight:
 """
 
 import math
-from .phase import riemann_zero
+from phase import riemann_zero
 
 TWOPI = 2.0 * math.pi
 

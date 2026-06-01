@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
 """phi_lib3 end-to-end demo."""
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from phi_lib3 import tokens, matchers, transforms, resolver, engine
+import tokens, matchers, transforms, resolver, engine
 
 
 def tok(s):

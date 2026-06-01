@@ -213,14 +213,20 @@ a φ-geometric object. We're not translating; we're resonating.
 
 ---
 
-## 7. Further Reading
+## 7. References
 
-All referenced documents are in `/home/thorin/termly_test4/`:
-
-- `PHI_PHASE_PAPER.md` — Full φ-phase attention paper
-- `DISCOVERY_LOG.md` — Complete discovery log
-- `phi_fpu/ARCHITECTURE.md` — φ-FPU specification
-- `riemann_attention/` — Riemann attention paper and code
-- `constructive_transformer/` — 4-state constructive transformer
-- `phi_moe/` — φ-MoE mixture of experts
-- `riemann_structures/` — 16 Riemann-zero-indexed data structures
+- **TruthSpace** (Gushurst, 2026): φ-Zipf duality, irreducible shape,
+  3,584 critical lines. Connects Zipf's law to golden ratio geometry.
+- **Constructive transformer v2** (Gushurst, 2026): 26-axis, 4-state
+  alphabet, hand-placed weights, no training, no softmax.
+- **Riemann attention** (Gushurst, 2026): Explicit formula is isomorphic
+  to position-only linear attention with RoPE encoding. Proves signed
+  weights are essential and softmax positivity is structurally incompatible.
+- **φ-rung GPTQ**: Quantization of transformer weights to 256 φ-ladder
+  values at +0.023 perplexity loss (matching INT4 GPTQ).
+- **φ-FPU architecture**: 8-bit φ-lane vector unit. 32 lanes in 256-bit
+  SIMD. φ-MUL = 1 cycle, φ-ADD = 2 cycles. 4× throughput vs AVX2.
+- **φ-phase attention principle**: Attention mask φ^(-|φ_i - φ_j| / scale(L))
+  derived from token frequency (Zipf's law). Validated at 0.5B and 7B.
+- **Riemann structures**: 16 data structures (hash tables, Bloom filters,
+  treaps, MinHash, HyperLogLog) using γₙ · key mod 2π as universal hash.

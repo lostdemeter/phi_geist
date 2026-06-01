@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
 """
 Production decompilation demo using the pattern library.
 """
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from phi_lib3.patterns.builder import build
-from phi_lib3 import tokens
+from patterns.builder import build
+import tokens
 
 
 def tok(s):
