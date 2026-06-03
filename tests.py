@@ -159,6 +159,25 @@ def test_log_space_invariant():
     assert d56 == d65  # distance is symmetric
 
 
+def test_phi_add_exact():
+    """φ-ADD via Taylor series matches linear brute-force."""
+    from phi_add import phi_add, linear_add
+    import random
+    random.seed(42)
+    for _ in range(500):
+        r1 = random.randint(0, 100)
+        r2 = random.randint(0, 100)
+        assert phi_add(r1, r2, terms=4) == round(linear_add(r1, r2))
+
+
+def test_phi_mul():
+    """φ-MUL is integer addition of combined rungs."""
+    from phi_add import phi_mul
+    assert phi_mul(3, 5) == 8
+    assert phi_mul(0, 10) == 10
+    assert phi_mul(100, 200) == 300
+
+
 def test_save_load():
     r1 = resolver.Resolver()
     r1.learn('je', '==', [5])
@@ -181,6 +200,8 @@ if __name__ == "__main__":
     test_phase_path()
     test_log_space_invariant()
     test_save_load()
+    test_phi_add_exact()
+    test_phi_mul()
     print("All phi_lib3 tests passed (including ported modules).")
 
 

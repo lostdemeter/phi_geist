@@ -180,7 +180,10 @@ of structured token sequences instead of natural language.
    φ-rung quantization. The structure is universal.
 
 7. **φ-FPU proof**: IEEE 754 → φ-ladder conversion is a 2-cycle
-   instruction. 4× throughput, 50× energy savings.
+   instruction. 4× throughput, 50× energy savings. φ-MUL = 1 cycle
+   (integer rung addition). φ-ADD uses the same φ-MUL hardware to
+   compute log_φ(1 + φ^(-δ)) via Taylor series — no lookup tables,
+   all integer operations, ~7 cycles typical.
 
 8. **Riemann attention proof**: Signed weights converge; softmax
    positivity is structurally incompatible.
@@ -225,7 +228,9 @@ a φ-geometric object. We're not translating; we're resonating.
 - **φ-rung GPTQ**: Quantization of transformer weights to 256 φ-ladder
   values at +0.023 perplexity loss (matching INT4 GPTQ).
 - **φ-FPU architecture**: 8-bit φ-lane vector unit. 32 lanes in 256-bit
-  SIMD. φ-MUL = 1 cycle, φ-ADD = 2 cycles. 4× throughput vs AVX2.
+  SIMD. φ-MUL = 1 cycle (rung addition). φ-ADD uses the same integer
+  adder for Taylor-series log_φ(1 + φ^(-δ)) — ~7 cycles, no lookup
+  tables, all integer. See [PHI_ADD.md](PHI_ADD.md).
 - **φ-phase attention principle**: Attention mask φ^(-|φ_i - φ_j| / scale(L))
   derived from token frequency (Zipf's law). Validated at 0.5B and 7B.
 - **Riemann structures**: 16 data structures (hash tables, Bloom filters,

@@ -194,13 +194,15 @@ phi_lib3/
 ├── normalize.py      x86 assembly normalizer
 ├── verify.py         re-compile validation (compile → normalize → diff)
 ├── resonant.py       Riemann-zero jump table detection
+├── phi_add.py        φ-ADD via Taylor series (no lookup tables)
+├── PHI_ADD.md        Derivation of lookup-table-free φ-ADD
 ├── patterns/         production decompiler patterns
 │   ├── builder.py    build() — pre-configured resolver + engine
 │   ├── mov.py        data movement (mov, push, pop, generic op_imm)
 │   ├── arith.py      arithmetic (add/sub, inc/dec)
 │   └── control.py    control flow (cmp+jcc, jmp)
 ├── WHY.md            full design philosophy and evidence chain
-├── tests.py          19 tests
+├── tests.py          21 tests
 ├── LICENSE           GPLv3
 └── README.md         this file
 ```
@@ -210,10 +212,16 @@ phi_lib3/
 The φ-FPU is a vector floating-point unit where each lane operates on
 8-bit φ-values instead of 32-bit IEEE 754 floats. A lane stores:
 [2 mantissa | 1 sign | 5 rung bits]. Value = sign × φ^(-rung) ×
-mantissa_correction.
+mantissa_correction (from {0.75, 0.88, 1.13, 1.33}).
 
-φ-MUL is 1 cycle (rung addition + sign XOR + mantissa lookup).
-φ-ADD is 2 cycles (rung comparison + mantissa correction).
+φ-MUL is 1 cycle (rung addition + sign XOR).
+φ-ADD uses φ-MUL's integer adder to compute a Taylor series for
+log_φ(1 + φ^(-δ)), eliminating all lookup tables. Typical cost:
+~7 cycles, all integer operations — 2-3× faster than LUT-based
+approaches and requiring no dedicated lookup hardware.
+
+See [PHI_ADD.md](PHI_ADD.md) for the full derivation and
+cycle-by-cycle breakdown.
 
 The General-Purpose φ-FPU (GP-FPU) extends this with a biased rung
 (like IEEE 754's biased exponent), enabling the full dynamic range
